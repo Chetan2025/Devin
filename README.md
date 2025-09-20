@@ -11,12 +11,13 @@ Open login/login.html → Login Page
 
 🔹 Method 2: Local Server (Recommended)
 Open terminal in the project folder.
-Run command make sure you are in home or login floder :     python -m http.server
+Run command make sure you are in home or login floder :  
+python -m http.server
 
 
 Open browser and go to:
- → Home Page   :  http://localhost:8000/HOME/index.html
-→ Login Page   :  http://localhost:8000/login/login.html
+ → Home Page   :  http://localhost:8000/HOME/index.html    
+,→ Login Page   :  http://localhost:8000/login/login.html
  
 
 ✅ That’s it! Your website is live.
