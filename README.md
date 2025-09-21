@@ -10,7 +10,7 @@ python -m http.server
 
 
 Open browser and go to:
- → Home Page   :  http://localhost:8000/HOME/index.html    
+ → Home Page   :  http://localhost:8000/
  
 
 ✅ That’s it! Your website is live.
