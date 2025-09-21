@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Register - Alumni Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles & Body Background */
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+    body{
+      display:flex;justify-content:center;align-items:center;
+      min-height:100vh;overflow:hidden;
+      background:linear-gradient(-45deg,#6a11cb,#2575fc,#00c6ff,#0072ff);
+      background-size:400% 400%;
+      animation:gradientBG 15s ease infinite alternate;
+    }
+    @keyframes gradientBG{
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    .circle{position:absolute;border-radius:50%;background:rgba(255,255,255,0.15);}
+    .circle:nth-child(1){width:120px;height:120px;left:10%;top:15%;}
+    .circle:nth-child(2){width:80px;height:80px;left:75%;top:25%;}
+    .circle:nth-child(3){width:150px;height:150px;left:30%;top:75%;}
+    .circle:nth-child(4){width:60px;height:60px;left:85%;top:55%;}
+    .circle:nth-child(5){width:100px;height:100px;left:5%;top:50%;}
+    
+    /* Main Container */
+    .container{
+      position:relative;width:900px;min-height:580px;
+      background:#fff;border-radius:25px;box-shadow:0 15px 40px rgba(0,0,0,0.3);
+      display:flex;overflow:hidden;
+      animation:zoomIn 1.2s ease-out;
+    }
+    @keyframes zoomIn{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
+
+    /* Image Section */
+    .image-container{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;}
+    .image-container img{width:330px;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.3));}
+
+    /* Form Section */
+    .form-container{flex:1;background:#333;color:#fff;display:flex;flex-direction:column;align-items:center;padding:40px;overflow-y:auto;}
+    .user-select{width:100%;text-align:center;margin-bottom:20px;}
+    .user-select label{font-size:17px;margin-right:10px;}
+    .user-select select{padding:10px 15px;border-radius:8px;border:none;outline:none;font-size:16px;}
+    
+    /* Form Wrapper & Boxes */
+    .forms-wrapper{width:100%;max-width:400px;position:relative;min-height:320px;}
+    .form-box{
+      position:absolute;width:100%;top:0;left:0;
+      opacity:0;transform:translateY(20px);pointer-events:none;
+      transition:all .5s ease;
+    }
+    .form-box.active{opacity:1;transform:translateY(0);pointer-events:auto;}
+    .form-box h3{text-align:center;margin-bottom:20px;color:#00f7ff;}
+    label{display:block;margin:8px 0 4px;}
+    input{width:100%;padding:12px;border-radius:8px;border:1px solid #777;background:rgba(255,255,255,0.1);color:#fff;margin-bottom:15px;}
+    button{width:100%;padding:12px;border:none;border-radius:8px;background:linear-gradient(45deg,#00c6ff,#0072ff);color:#fff;font-size:16px;font-weight:600;cursor:pointer;}
+    button:hover{background:linear-gradient(45deg,#0072ff,#2575fc);}
+    .form-footer{text-align:center;margin-top:12px;font-size:14px;}
+    .form-footer a{color:#00f7ff;cursor:pointer;}
+
+    /* New Message Box Styles */
+    .message-box {
+        position: fixed;
+        top: -50px; /* Start above the screen */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #4CAF50; /* Green color for success */
+        color: white;
+        text-align: center;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        opacity: 0;
+        transition: top 0.5s ease-out, opacity 0.5s ease-out;
+    }
+    .message-box.show {
+        top: 20px; /* Slide down to a visible position */
+        opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media(max-width:950px){
+      .container{flex-direction:column;width:90%;}
+      .image-container img{width:220px;}
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div><div class="circle"></div>
+
+  <div class="container">
+    <div class="image-container">
+      <img src="https://cdni.iconscout.com/illustration/premium/thumb/login-page-4468581-3783957.png">
+    </div>
+    <div class="form-container">
+      <div class="user-select">
+        <label for="userType">Select User Type:</label>
+        <select id="userType" onchange="showUserForm()">
+          <option value="">-- Choose --</option>
+          <option value="student">Student</option>
+          <option value="alumni">Alumni</option>
+          <option value="college">College/University</option>
+        </select>
+      </div>
+
+      <div class="forms-wrapper">
+        <div class="form-box" id="studentLogin">
+          <h3>Student Login</h3>
+          <form onsubmit="event.preventDefault(); showMessage('Student Login successful!');">
+            <label>Student ID</label>
+            <input type="text" placeholder="Enter Student ID" required>
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password" required>
+            <button type="submit">Login</button>
+          </form>
+          <div class="form-footer">Don’t have account? <a onclick="showRegister('student')">Register</a></div>
+        </div>
+        <div class="form-box" id="studentRegister">
+          <h3>Student Register</h3>
+          <form onsubmit="event.preventDefault(); showMessage('Student Registered!');">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter Full Name">
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email">
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password">
+            <button type="submit">Register</button>
+          </form>
+          <div class="form-footer">Already have account? <a onclick="showLogin('student')">Login</a></div>
+        </div>
+
+        <div class="form-box" id="alumniLogin">
+          <h3>Alumni Login</h3>
+          <form onsubmit="event.preventDefault(); showMessage('Alumni Login successful!');">
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email">
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password">
+            <button type="submit">Login</button>
+          </form>
+          <div class="form-footer">Don’t have account? <a onclick="showRegister('alumni')">Register</a></div>
+        </div>
+        <div class="form-box" id="alumniRegister">
+          <h3>Alumni Register</h3>
+          <form onsubmit="event.preventDefault(); showMessage('Alumni Registered!');">
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter Full Name">
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email">
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password">
+            <button type="submit">Register</button>
+          </form>
+          <div class="form-footer">Already have account? <a onclick="showLogin('alumni')">Login</a></div>
+        </div>
+
+        <div class="form-box" id="collegeLogin">
+          <h3>College Login</h3>
+          <form onsubmit="event.preventDefault(); showMessage('College Login successful!');">
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email">
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password">
+            <button type="submit">Login</button>
+          </form>
+          <div class="form-footer">Don’t have account? <a onclick="showRegister('college')">Register</a></div>
+        </div>
+        <div class="form-box" id="collegeRegister">
+          <h3>College Register</h3>
+          <form onsubmit="event.preventDefault(); showMessage('College Registered!');">
+            <label>College Name</label>
+            <input type="text" placeholder="Enter College Name">
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email">
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password">
+            <button type="submit">Register</button>
+          </form>
+          <div class="form-footer">Already have account? <a onclick="showLogin('college')">Login</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="message-box" class="message-box"></div>
+
+  <script>
+    function hideAllForms(){document.querySelectorAll('.form-box').forEach(f=>f.classList.remove('active'))}
+    function showForm(id){hideAllForms();document.getElementById(id)?.classList.add('active')}
+    function showUserForm(){let type=document.getElementById('userType').value; if(type)showForm(type+'Login'); else hideAllForms();}
+    function showRegister(type){showForm(type+'Register')}
+    function showLogin(type){showForm(type+'Login')}
+
+    function showMessage(message) {
+        const msgBox = document.getElementById('message-box');
+        msgBox.textContent = message;
+        msgBox.classList.add('show');
+        setTimeout(() => {
+            msgBox.classList.remove('show');
+        }, 3000); // Hide after 3 seconds
+    }
+  </script>
+</body>
+</html>

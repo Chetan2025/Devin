@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Alumni Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: fadeDown 1s ease forwards;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    header .logo img {
+      width: 45px;
+      margin-right: 10px;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover, 
+    header nav .active {
+      color: #ffdd57;
+    }
+
+    /* Hero Section */
+    .contact-hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      animation: fadeIn 1.5s ease;
+    }
+
+    .contact-hero h2 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      animation: slideUp 1.2s ease;
+    }
+
+    .contact-hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      color: #ddd;
+      animation: fadeIn 2s ease;
+    }
+
+    /* Contact Section */
+    .contact-form-section {
+      padding: 60px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .contact-container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .contact-form-wrapper, .contact-info {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      transform: scale(0.95);
+      opacity: 0;
+      animation: zoomIn 1s ease forwards;
+    }
+
+    .contact-form-wrapper { animation-delay: 0.2s; }
+    .contact-info { animation-delay: 0.5s; }
+
+    h3 {
+      margin-bottom: 20px;
+      color: #ffdd57;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      transition: box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      box-shadow: 0 0 10px #ffdd57;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #ffdd57;
+      color: #333;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      background: #ffc107;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 15px;
+      color: #ddd;
+    }
+
+    .info-item i {
+      margin-right: 10px;
+      color: #ffdd57;
+      font-size: 18px;
+    }
+
+    .social-links {
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 18px;
+      color: #fff;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #ffdd57;
+      transform: scale(1.2);
+    }
+
+    /* Success Message */
+    .message-box {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #28a745;
+      padding: 15px 25px;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
+      opacity: 0;
+      transition: all 0.6s ease;
+    }
+
+    .message-box.show {
+      bottom: 30px;
+      opacity: 1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    /* Animations */
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    @keyframes fadeDown { from {opacity: 0; transform: translateY(-30px);} to {opacity: 1; transform: translateY(0);} }
+    @keyframes slideUp { from {opacity: 0; transform: translateY(30px);} to {opacity: 1; transform: translateY(0);} }
+    @keyframes zoomIn { from {opacity: 0; transform: scale(0.8);} to {opacity: 1; transform: scale(1);} }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="asset/images/logo.png" alt="Logo">
+      <h1>Alumni Portal</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="achievements.html">Achievements</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="contact-hero">
+    <div class="hero-text">
+      <h2>Get in Touch</h2>
+      <p>Have questions, suggestions, or want to collaborate? We'd love to hear from you!</p>
+    </div>
+  </section>
+
+  <section class="contact-form-section">
+    <div class="contact-container">
+      <!-- Form -->
+      <div class="contact-form-wrapper">
+        <h3>Send Us a Message</h3>
+        <form class="contact-form" id="contactForm">
+          <div class="input-group">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+          </div>
+          <textarea id="message" name="message" placeholder="Your Message" rows="6" required></textarea>
+          <button type="submit" class="btn" id="submitBtn">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Info -->
+      <div class="contact-info">
+        <h3>Contact Info</h3>
+        <div class="info-item"><i class="fas fa-envelope"></i><p>info@alumniportal.com</p></div>
+        <div class="info-item"><i class="fas fa-phone-alt"></i><p>+91 9876543210</p></div>
+        <div class="info-item"><i class="fas fa-map-marker-alt"></i><p>University Campus, City, Country</p></div>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="success-message" class="message-box">
+    ✅ Thank you for contacting us! We'll get back to you soon.
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Alumni Portal. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const messageBox = document.getElementById('success-message');
+      
+      submitBtn.innerHTML = 'Sending... ⏳';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        this.reset();
+        messageBox.classList.add('show');
+        submitBtn.innerHTML = 'Send Message';
+        submitBtn.disabled = false;
+
+        setTimeout(() => {
+          messageBox.classList.remove('show');
+        }, 4000);
+
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
